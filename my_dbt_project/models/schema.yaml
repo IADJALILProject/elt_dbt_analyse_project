@@ -1,0 +1,94 @@
+version: 2
+
+sources:
+  - name: public
+    description: "Schéma contenant les données brutes"
+    tables:
+      - name: users
+        description: "Table des utilisateurs bruts"
+      - name: orders
+        description: "Table des commandes brutes"
+
+models:
+  - name: example
+    description: "Modèle transformant les utilisateurs actifs avec leur mois d'inscription"
+    columns:
+      - name: id
+        description: "Identifiant unique de l'utilisateur"
+        tests:
+          - unique
+          - not_null
+      - name: email
+        description: "Adresse e-mail des utilisateurs"
+        tests:
+          - not_null
+      - name: signup_month
+        description: "Mois d'inscription des utilisateurs"
+
+  - name: user_order_summary
+    description: "Résumé des commandes par utilisateur"
+    columns:
+      - name: user_id
+        description: "Identifiant de l'utilisateur"
+        tests:
+          - unique
+          - not_null
+      - name: total_orders
+        description: "Nombre total de commandes par utilisateur"
+        tests:
+          - not_null
+      - name: total_amount
+        description: "Montant total des commandes par utilisateur"
+        tests:
+          - not_null
+      - name: last_order_date
+        description: "Date de la dernière commande"
+
+  - name: sales_by_month
+    description: "Résumé des ventes par mois"
+    columns:
+      - name: month
+        description: "Mois de la commande"
+        tests:
+          - not_null
+      - name: total_sales
+        description: "Total des ventes du mois"
+        tests:
+          - not_null
+      - name: total_orders
+        description: "Nombre total de commandes du mois"
+        tests:
+          - not_null
+
+  - name: user_segmentation
+    description: "Segmentation des utilisateurs par RFM"
+    columns:
+      - name: user_id
+        description: "Identifiant de l'utilisateur"
+        tests:
+          - unique
+          - not_null
+      - name: value_segment
+        description: "Segment de valeur utilisateur"
+        tests:
+          - not_null
+      - name: frequency_segment
+        description: "Segment de fréquence utilisateur"
+        tests:
+          - not_null
+
+  - name: order_status_summary
+    description: "Résumé des commandes par statut"
+    columns:
+      - name: status
+        description: "Statut de la commande"
+        tests:
+          - not_null
+      - name: total_orders
+        description: "Nombre total de commandes pour ce statut"
+        tests:
+          - not_null
+      - name: total_amount
+        description: "Montant total des commandes pour ce statut"
+        tests:
+          - not_null
